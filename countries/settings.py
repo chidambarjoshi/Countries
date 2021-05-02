@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'countries.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.mysql',
-        'NAME': 'city',
-        'USER':'root',
-        'PASSWORD':'',
-        'HOST':'127.0.0.1',
+        'NAME': 'mysqldb',
+        'USER':'mysqluser',
+        'PASSWORD':'X-Nd>)w9;4n4}xYP',
+        'HOST':'142.93.214.61',
         'PORT':'3306',
     }
 }
