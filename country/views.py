@@ -7,6 +7,9 @@ from .models import Image
 from .serializers import ImageSerializer
 import mysql.connector
 
+import boto3
+
+s3 = boto3.resource('s3')
 
 
 
@@ -46,7 +49,6 @@ def modify_input_for_multiple_files(image_name, image):
 
 class ImageView(APIView):
     parser_classes = (MultiPartParser, FormParser)
-
     def get(self, request):
         all_images = Image.objects.all()
         if all_images:
@@ -60,7 +62,6 @@ class ImageView(APIView):
 
     def post(self, request, *args, **kwargs):
         image_name = request.data['image_name']
-
         # converts querydict to original dict
         images = dict((request.data).lists())['image']
         flag = 1
@@ -80,3 +81,34 @@ class ImageView(APIView):
             return Response(arr, status=status.HTTP_201_CREATED)
         else:
             return Response(arr, status=status.HTTP_400_BAD_REQUEST)
+import logging
+import boto3
+from botocore.exceptions import ClientError
+class videoview(viewsets.ViewSet):
+    def list(self,request):
+        print("hit")
+        bucket = s3.Bucket('xubbabucket')
+        
+        for key in bucket.objects.all():
+            print(key.key)
+        
+        return JsonResponse({},status=status.HTTP_200_OK)
+        
+    def videoup(self,request):
+        
+        video = request.data['video']
+        print(request.data)
+        s3_client = boto3.client('s3')
+        print(video)
+        
+        try:
+            print('try')
+            response =s3_client.upload_file(video, 'xubbabucket','video/{}'.format(video))# s3_client.upload_file(video, 'xubbabucket','video/{}'.format(video))
+            print(response)
+        except ClientError as e:
+            logging.error(e)
+            print(e)
+            return JsonResponse({},status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({},status=status.HTTP_201_CREATED)
+        
+
