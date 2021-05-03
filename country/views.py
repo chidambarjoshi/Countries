@@ -54,7 +54,7 @@ class ImageView(APIView):
              return JsonResponse(serializer.data, safe=False)
         else :
             data={"message":"No image Found"}
-            return JsonResponse(data, safe=False)
+            return JsonResponse(data, safe=False,status=status.status.HTTP_404_NOT_FOUND)
 
         
 

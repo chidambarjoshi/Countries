@@ -17,6 +17,10 @@ import dj_database_url
 from django.core.management.utils import get_random_secret_key
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import environ
+env= environ.Env()
+environ.Env.read_env()
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -79,11 +83,11 @@ WSGI_APPLICATION = 'countries.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.mysql',
-        'NAME': 'mysqldb',
-        'USER':'mysqluser',
-        'PASSWORD':'X-Nd>)w9;4n4}xYP',
-        'HOST':'142.93.214.61',
-        'PORT':'3306',
+        'NAME': env("DATABASE_NAME"),
+        'USER':env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST':env("DATABASE_HOST"),
+        'PORT':env("DATABASE_PORT"),
     }
 }
 
@@ -125,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

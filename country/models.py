@@ -19,6 +19,8 @@ class City(models.Model):
 class Image(models.Model):    
     image_name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='images' )
+
+    
     
 
 
