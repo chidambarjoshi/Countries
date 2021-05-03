@@ -49,8 +49,14 @@ class ImageView(APIView):
 
     def get(self, request):
         all_images = Image.objects.all()
-        serializer = ImageSerializer(all_images, many=True ,context={'request':request})
-        return JsonResponse(serializer.data, safe=False)
+        if all_images:
+             serializer = ImageSerializer(all_images, many=True ,context={'request':request})
+             return JsonResponse(serializer.data, safe=False)
+        else :
+            data={"message":"No image Found"}
+            return JsonResponse(data, safe=False)
+
+        
 
     def post(self, request, *args, **kwargs):
         image_name = request.data['image_name']
