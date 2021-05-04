@@ -12,11 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import sys
-import dj_database_url
 from django.core.management.utils import get_random_secret_key
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import boto3
 import environ
 env= environ.Env()
 environ.Env.read_env()
@@ -137,3 +136,10 @@ STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+
+## s3
+AWS_ACCESS_KEY_ID=env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY=env("AWS_SECRET_ACCESS_KEY")
+AWS_DEFAULT_REGION=env("AWS_SECRET_ACCESS_KEY")
