@@ -1,3 +1,4 @@
 *.pyc
 *.mp4
+.env
 db.sqlite3
